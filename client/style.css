@@ -63,9 +63,7 @@ input {
 
 /* Image Card ********************************************** */
 img{
-  /* max-width: 330px; */
   padding: 10px 15px;
-  max-height: 500px;
   width: 100%;
   overflow: hidden;
   cursor: pointer;
@@ -79,11 +77,13 @@ img{
   margin-bottom: 80px;
 }
 .card {
-  margin: 20px 3px;
+  margin: 10px 3px;
   border: 1px solid rgba(0,0,0,0.2);
   text-align: center;
   width: 46%;
   min-width: 250px;
+  max-height: 300px;
+  overflow: hidden;
 }
 .card p {
   padding-top: 10px;

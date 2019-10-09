@@ -261,7 +261,6 @@
     }
   })
 
-
   // Modal ------------
   // Modal ------------
   document.addEventListener('DOMContentLoaded', () => {
