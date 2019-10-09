@@ -1,0 +1,29 @@
+{
+  "name": "kvittosparare",
+  "version": "1.0.0",
+  "description": "shoppingkvitton",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "author": "christoffer",
+  "license": "MIT",
+  "engines": {
+    "node": "10.15.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "concurrently": "^3.6.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.3",
+    "fs": "0.0.1-security",
+    "mongoose": "^5.1.6",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^8.4.0",
+    "validator": "^10.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}

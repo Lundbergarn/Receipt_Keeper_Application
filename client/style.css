@@ -1,0 +1,144 @@
+html, body{
+  height: 100vh;
+}
+main {
+  max-width: 700px;
+  margin: 0 auto;
+  padding-top: 80px;
+}
+
+.row{
+  margin: 0 auto;
+}
+.btn{
+  margin: 0 4px;
+}
+
+/* Navbar ********************************************** */
+nav{
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  height: 57px;
+}
+nav .brand-logo {
+  left: 10px;
+  line-height: 3.8rem;
+}
+nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
+  line-height: 38px;
+}
+.nav-wrapper div {
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+/* Input ********************************************** */
+input {
+  display: none;
+}
+.input-text{
+  display: block;
+}
+#inputContainer {
+  display: none;
+}
+.input-field{
+  justify-items: center;
+}
+.add-container{
+  margin: 0 auto 70px auto;
+  text-align: center;
+}
+#btn-new-image {
+  position: fixed;
+  bottom: 20px;
+  transform: translateX(-28px)
+}
+
+/* Image Card ********************************************** */
+img{
+  /* max-width: 330px; */
+  padding: 10px;
+  width: 100%;
+  overflow: hidden;
+}
+#allImg{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+#img-container{
+  margin-bottom: 80px;
+}
+.card {
+  margin: 10px;
+}
+.card p {
+  padding-top: 10px;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 600;
+  margin: 0;
+}
+
+
+/* Modal ****************************** */
+.modal-content h3 {
+  font-size: 2rem;
+}
+.modal-content .btn {
+  margin-top: 10px;
+}
+#messageModal {
+  top: 150px;
+  z-index: 100000;
+}
+.modal {
+  max-height: 100%;
+}
+
+/* Query ************************************ */
+@media only screen and (max-width: 992px) {
+  nav .brand-logo.left {
+    left: 10px;
+    font-size: 1.75rem;
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+  }
+}
+@media only screen and (max-width: 350px) {
+  nav .brand-logo.left {
+    font-size: 1.7rem;
+  }
+}
+
+/* Footer ************************************** */
+.page-footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+.page-footer .footer-copyright {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding-right: 10px;
+  min-height: 30px;
+}
+
+/* Effects ************************* */
+.inactive-log, .inactive {
+  display: none;
+}
+.active-log {
+  display: block;
+}
+.error {
+  color: red;
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
