@@ -103,9 +103,10 @@ img{
   cursor: pointer;
   font-size: 24px;
   transition: 0.2s ease-in-out;
+  color: #26a69a;
 }
 .card .material-icons:hover {
-  color: red;
+  color: #ff6e40;
 }
 
 /* Modal ****************************** */
@@ -165,7 +166,7 @@ img{
   display: block;
 }
 .error {
-  color: red;
+  color: #ff6e40;
   font-weight: 700;
   font-size: 1.5rem;
   text-align: center;

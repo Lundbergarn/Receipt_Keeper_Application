@@ -14,7 +14,7 @@
   isMobileDevice() ? url = "/" : url = "/";
 
   // Check for new input
-  $("#imageInput").change(function () {
+  $("#imageInput").change( () => {
     readURL(this);
   });
 
@@ -25,7 +25,7 @@
   };
 
   // Display errors
-  displayMessage = (message) => {
+  const displayMessage = (message) => {
     if (Object.keys(message).includes('error')) {
       messageTag.textContent = message.message;
       // alert(message.error)
@@ -38,11 +38,6 @@
       console.log('message')
     } else console.log('other')
   };
-
-  // Select from DOM
-  querySelect = (element) => {
-    return document.querySelector(element);
-  }
 
   // Check request for errors
   async function checkStatus(response) {
@@ -57,13 +52,18 @@
     }
   }
 
+  // Select from DOM
+  const querySelect = (element) => {
+    return document.querySelector(element);
+  }
+
   // Parsedata
-  parseJSON = (response) => {
+  const parseJSON = (response) => {
     return response.json()
   }
 
   // GET
-  getRequest = (endpoint) => {
+  const getRequest = (endpoint) => {
     return fetch(url + endpoint, {
       method: 'GET',
       protocol: 'http:',
@@ -75,7 +75,7 @@
   }
 
   // POST
-  postRequest = (endpoint, data = null) => {
+  const postRequest = (endpoint, data = null) => {
     return fetch(url + endpoint, {
       method: 'POST',
       body: JSON.stringify(data),
@@ -86,18 +86,105 @@
     })
   }
 
+  // DELETE
+  const deleteRequest = (endpoint, id) => {
+    return fetch(url + endpoint, {
+      method: 'DELETE',
+      body: JSON.stringify(id),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      }
+    })
+  }
+
+  // ShowImage function
+  const showImage = (data, searchVal = null) => {
+    if (!data[0]) {
+      displayMessage({ message: 'No images to show' })
+      return;
+    }
+
+    let imgList = document.createElement('DIV');
+
+    data.forEach(el => {
+      if (searchVal === null || el.title.toLowerCase().includes(searchVal)) {
+
+        let img = document.createElement('IMG');
+        let title = document.createElement('P');
+        let date = document.createElement('P');
+        let remove = document.createElement('I');
+        let container = document.createElement('ARTICLE');
+
+        img.src = `data:image/jpeg;base64,${el.image}`;
+        container.className = "card";
+        container.id = el._id;
+        title.textContent = el.title;
+        date.textContent = el.createdAt.slice(0, 10);
+        remove.textContent = "delete";
+        remove.className = "material-icons";
+        imgList.className = "all_image_container";
+
+        container.append(title);
+        container.append(date);
+        container.append(remove);
+        container.append(img);
+        imgList.append(container);
+      }
+    })
+
+    let allImg = querySelect('#allImg');
+    allImg.innerHTML = "";
+    allImg.append(imgList);
+  }
+
+
+  
+  // Search Image ----------
+  // Search Image ----------
+  const searchImage = () => {
+    let searchValue = querySelect('#searchInput').value.toLowerCase();
+
+    if (searchValue === "") {
+      displayMessage({ message: 'Type search value' });
+      return;
+    }
+
+    try {
+      getRequest('kvitton')
+        .then(checkStatus)
+        .then(parseJSON)
+        .then(dataRes => showImage(dataRes, searchValue))
+        .then($('#searchModal').modal('close'))
+        .catch(error => displayMessage({ error: error }));
+    }
+    catch (error) {
+      console.log(error);
+    }
+  };
+
+  querySelect('#searchInput').addEventListener("keydown", (event) => {
+    if (event.keyCode == 13) {
+      console.log('search')
+      event.preventDefault();
+      event.target.blur();
+      searchImage();
+    }
+  });
+
+  querySelect('#search').addEventListener('click', () => {
+    searchImage();
+  });
 
 
   // Titel input -------
   // Titel input -------
-  $("#imageTitel").on("keypress", (event) => {
+  querySelect('#imageTitel').addEventListener("keydown", (event) => {
     if (event.keyCode == 13) {
       event.preventDefault();
-      event.target.blur()
+      event.target.blur();
     }
   })
-
-
 
   //Save Image  ----------
   //Save Image  ----------
@@ -156,72 +243,23 @@
     }
   })
 
-
-
-  // Search Image ----------
-  // Search Image ----------
-  querySelect('#search').addEventListener('click', () => {
-    let searchValue = querySelect('#searchInput').value.toLowerCase();
-
-    if (searchValue === "") {
-      displayMessage({ message: 'Type search value' });
-      return;
-    }
-
-    try {
-      getRequest('kvitton')
-        .then(checkStatus)
-        .then(parseJSON)
-        .then(dataRes => showImage(dataRes, searchValue))
-        .then($('#searchModal').modal('close'))
-        .catch(error => displayMessage({ error: error }));
-    }
-    catch (error) {
-      console.log(error);
+  // Delete Image
+  document.body.addEventListener('click', (e) => {
+    if(e.target.innerHTML === 'delete') {
+      try {
+        deleteRequest('kvitton/' + e.target.parentNode.id)
+          .then(checkStatus)
+          .then(response => {
+            displayMessage({ message: 'Image removed' });
+            e.target.parentNode.remove();
+          })
+          .catch(error => console.log(error));
+      }
+      catch (error) {
+        console.log(error);
+      }
     }
   })
-
-
-
-  // ShowImage function
-  showImage = (data, searchVal = null) => {
-    if (!data[0]) {
-      displayMessage({ message: 'No images to show' })
-      return;
-    }
-
-    let imgList = document.createElement('DIV');
-
-    data.forEach(el => {
-      if (searchVal === null || el.title.toLowerCase().includes(searchVal)) {
-
-        let img = document.createElement('IMG');
-        let title = document.createElement('P');
-        let date = document.createElement('P');
-        let remove = document.createElement('I');
-        let container = document.createElement('ARTICLE');
-
-        img.src = `data:image/jpeg;base64,${el.image}`;
-        container.className = "card";
-        title.textContent = el.title;
-        date.textContent = el.createdAt.slice(0, 10);
-        remove.textContent = "delete";
-        remove.className = "material-icons";
-        imgList.className = "all_image_container";
-
-        container.append(title);
-        container.append(date);
-        container.append(remove);
-        container.append(img);
-        imgList.append(container);
-      }
-    })
-
-    let allImg = querySelect('#allImg');
-    allImg.innerHTML = "";
-    allImg.append(imgList);
-  }
-
 
 
   // Modal ------------
