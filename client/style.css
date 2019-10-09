@@ -6,7 +6,6 @@ main {
   margin: 0 auto;
   padding-top: 80px;
 }
-
 .row{
   margin: 0 auto;
 }
@@ -53,26 +52,38 @@ input {
 #btn-new-image {
   position: fixed;
   bottom: 20px;
-  transform: translateX(-28px)
+  transform: translateX(-28px);
+}
+.btn-large i {
+  font-size: 2.55rem;
+}
+.btn-floating.btn-large i {
+  line-height: 44px;
 }
 
 /* Image Card ********************************************** */
 img{
   /* max-width: 330px; */
-  padding: 10px;
+  padding: 10px 15px;
+  max-height: 500px;
   width: 100%;
   overflow: hidden;
+  cursor: pointer;
 }
-#allImg{
+.all_image_container {
   display: flex;
   justify-content: space-around;
-  flex-direction: column;
+  flex-wrap: wrap;
 }
 #img-container{
   margin-bottom: 80px;
 }
 .card {
-  margin: 10px;
+  margin: 20px 3px;
+  border: 1px solid rgba(0,0,0,0.2);
+  text-align: center;
+  width: 46%;
+  min-width: 250px;
 }
 .card p {
   padding-top: 10px;
@@ -82,7 +93,20 @@ img{
   font-weight: 600;
   margin: 0;
 }
-
+.card p:last-of-type {
+  color: grey;
+}
+.card .material-icons {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  font-size: 24px;
+  transition: 0.2s ease-in-out;
+}
+.card .material-icons:hover {
+  color: red;
+}
 
 /* Modal ****************************** */
 .modal-content h3 {
@@ -106,6 +130,11 @@ img{
     font-size: 1.75rem;
     -webkit-transform: translateX(0%);
     transform: translateX(0%);
+  }
+}
+@media only screen and (max-width: 540px) {
+  .card {
+    min-width: 95%;
   }
 }
 @media only screen and (max-width: 350px) {

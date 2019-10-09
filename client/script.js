@@ -27,7 +27,6 @@
   // Display errors
   displayMessage = (message) => {
     if (Object.keys(message).includes('error')) {
-
       messageTag.textContent = message.message;
       // alert(message.error)
       messageModal.style.display = 'block';
@@ -197,19 +196,24 @@
       if (searchVal === null || el.title.toLowerCase().includes(searchVal)) {
 
         let img = document.createElement('IMG');
-        let text = document.createElement('P');
+        let title = document.createElement('P');
         let date = document.createElement('P');
-        let div = document.createElement('ARTICLE');
+        let remove = document.createElement('I');
+        let container = document.createElement('ARTICLE');
 
         img.src = `data:image/jpeg;base64,${el.image}`;
-        div.className = "card";
-        text.textContent = el.title;
+        container.className = "card";
+        title.textContent = el.title;
         date.textContent = el.createdAt.slice(0, 10);
+        remove.textContent = "delete";
+        remove.className = "material-icons";
+        imgList.className = "all_image_container";
 
-        div.append(text);
-        div.append(date);
-        div.append(img);
-        imgList.append(div);
+        container.append(title);
+        container.append(date);
+        container.append(remove);
+        container.append(img);
+        imgList.append(container);
       }
     })
 
@@ -222,7 +226,7 @@
 
   // Modal ------------
   // Modal ------------
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', () => {
     let elems = document.querySelectorAll('.modal');
     let instances = M.Modal.init(elems);
   });
